@@ -1,0 +1,76 @@
+class Pessoa :
+    def __init__(self,nome,idade,peso,acordar=False,falar=False, comendo=False):
+        self.nome = nome
+        self.idade = idade
+        self.peso = peso
+        self.comendo = comendo
+        self.falar=falar
+        self.acordar=acordar
+
+    def comer(self,alimento):
+        self.alimento=alimento
+        if self.comendo == False:
+            print(f'{self.nome } começou comendo {alimento}')
+            self.comendo = True
+            if self.falar == False:
+                print("não pode falar por que esta comendo")
+                if self.acordar == True:
+                    print("está acordado pode se alimentar")
+                else:
+                    print("está dormindo não pode comer ")
+
+    def paraComer(self):
+        if self.comendo == True:
+            print(f'{self.nome } parou de comer')
+            self.comendo = False
+            if self.paraFalar == True:
+                print("pode falar pois não está comendo")
+              
+
+    def falando(self):
+            if self.comendo == True:
+                print("não pode falar por que está comendo")
+                self.falar = False
+            else:
+                print("pode falar por que não está comendo")
+                self.falar = True
+
+    def paraFalar(self):
+        if self.falar == True:
+            self.falar = False
+            print("parou de falar")
+
+    def acordado(self):
+        self.acordar == True
+        print('está acordado')
+    def durmindo(self):
+        self.acordar == False
+        print('está dormindo')
+
+p1 = Pessoa('giovanna',24,51)
+p1.comer('maça')
+p1.paraComer()
+p1.falando()
+p1.paraFalar()
+p1.durmindo()
+
+
+p2 = Pessoa('hugo',28,85)
+p2.comer('whey')
+p2.falando()
+p2.paraComer()
+p2.falando()
+p2.paraFalar()
+p2.acordado()
+
+'''
+print(vars(p1))
+p1 = Pessoa('rodrigo',39,90.03)
+print(f'{p1.nome},{p1.idade}')
+'''
+
+'''
+# jogo da velha 
+# conta bancaria 
+#
+'''
