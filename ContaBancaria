@@ -1,0 +1,22 @@
+class Conta:
+    def __init__(self, cliente, numero, saldo):
+        self.cliente = cliente
+        self.numero  = numero
+        self.saldo   = saldo
+
+    def imprimirSaldo(self):
+            print("Saldo: R$ %.2f" %self.saldo)
+
+    def saca(self, valor):
+        if valor <= self.saldo:
+            self.saldo -= valor
+            return True
+        else:
+            print("Saldo insuficiente para está operação")
+            return False
+    def deposita(self,valor):
+        self.saldo += valor
+
+    def trasfere(self, cc_destino, valor):
+        if self.saca(valor) == True:
+            cc.destino.deposita(valor)
