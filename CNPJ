@@ -1,0 +1,34 @@
+import re
+
+REGRESSIVOS = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+def validacao(cnpj):
+    cnpj = somenteNumero(cnpj)
+    if sequencia(cnpj):
+        return False
+    print(cnpj)
+    novo_cnpj = calculaDigito(cnpj=cnpj,digito=1)
+def calculaDigito(cnpj,digito):
+    if digito == 1:
+    
+        regressivo = REGRESSIVOS[1:]
+    elif digito == 2:
+        regressivo = REGRESSIVOS
+    else:
+        return None
+    total = 0
+
+    for indice, regressivo in enumerate (regressivo):
+        total += int(cnpj[indice])*regressivo
+
+    digito = 11 - (total % 11)
+    digito = digito if digito <= 0 else 0
+
+    def sequencia(cnpj):
+    sequancia = cnpj[0] * len(cnpj)
+    if sequencia == cnpj:
+        return True
+    else:
+        return False
+def somenteNumero(cnpj):
+    return re.sub(r'[0-9]','',cnpj)
