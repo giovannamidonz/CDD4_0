@@ -1,0 +1,9 @@
+class Telefone():
+    def__init__(self,telefone):
+        self.__telefone = telefone
+        
+    def getTelefone(self):
+        return self.__telefone
+        
+    def setTelefon(self,telefone):
+        self.__telefone = telefone
