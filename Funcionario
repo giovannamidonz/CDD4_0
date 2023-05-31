@@ -1,0 +1,13 @@
+class Funcionario :
+    __nome = None
+    __salario = None
+
+    def __init__(self,nome,salario):
+        self.nome = nome
+        self.salario = salario
+
+    def aumentarSalario(self,percentualDeAumento):
+        return self.salario+percentualDeAumento/100
+
+funcionario = Funcionario("Hanry",25000)
+print(funcionario.aumentarSalario(10))
