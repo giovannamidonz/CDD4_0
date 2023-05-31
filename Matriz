@@ -1,0 +1,18 @@
+class Matriz:
+    _dic = None
+    _tamanho =None
+
+    def __init__(self):
+        self._dic = {}
+        self.tamanho = 0
+
+    def __init__(self,matriz,tamanho):
+        self.dic = matriz
+        self.tamanho = tamanho
+
+    def imprimeMatriz(self):
+        for i in range(self.tamanho):
+            Linha = ""
+            for j in range(self.tamanho):
+                Linha += self.dic[(i,j)] + " "
+                print(Linha)
