@@ -1,0 +1,12 @@
+from pessoa import pessoa
+
+class PessoaMedica
+    def __init__(self,crm,nome,idade,cpf,telefone):
+        self.__crm = crm
+        super().__init__(nome,indade,cpf,telefone)
+        
+        def getCrm(self):
+            self.__crm
+            
+        def setCrm(self,crm):
+            self.__crm
