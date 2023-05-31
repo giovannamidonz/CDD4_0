@@ -1,0 +1,26 @@
+class Triangulo:
+    __LadoA = None
+    __LadoB = None
+    __LadoC = None
+
+    def __init__(self,LadoA,LadoB,LadoC):
+        self.LadoA = LadoA
+        self.LadoB = LadoB
+        self.LadoC = LadoC
+
+    def calcularPerimetro(self):
+        return self.LadoA + self.LadoB + self.LadoC
+
+
+    def getMaiorLado(self):
+        if self.LadoA > self.LadoB and self.LadoA > self.LadoC:
+            return self.LadoA
+        elif self.LadoB > self.LadoA and self.LadoB > self.LadoC:
+            return self.LadoB
+        else:
+            return self.LadoC
+
+
+area = Triangulo(10,8,6)
+print(area.calcularPerimetro())
+print(area.getMaiorLado())
