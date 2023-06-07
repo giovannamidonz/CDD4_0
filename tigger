@@ -1,0 +1,163 @@
+CREATE TABLE agenda ( nome VARCHAR2(20),
+fone VARCHAR2(10) );
+CREATE OR REPLACE TRIGGER TR_MostraOperacao
+
+BEFORE INSERT
+ON agenda
+
+BEGIN
+
+DBMS_OUTPUT.PUT_LINE('Inclusão efetuada com sucesso!');
+
+END;
+INSERT INTO agenda (nome,fone) VALUES('Fred','1111-1111');
+--------------------------------------------------------------------------------------------------------
+INSERT ALL
+
+INTO agenda(nome,fone) VALUES('Bira','2222-2222')
+INTO agenda(nome,fone) VALUES('Beto','3333-3333')
+INTO agenda(nome,fone) VALUES('Bela','4444-4444')
+
+SELECT * FROM dual;
+CREATE OR REPLACE TRIGGER TR_MostraOperacao
+
+BEFORE UPDATE
+ON agenda
+
+BEGIN
+
+DBMS_OUTPUT.PUT_LINE('Alteração efetuada com sucesso!');
+
+END;
+UPDATE agenda SET nome='Bita' WHERE nome='Fred';
+
+CREATE OR REPLACE TRIGGER TR_MostraOperacao
+
+BEFORE DELETE
+ON agenda
+
+BEGIN
+
+DBMS_OUTPUT.PUT_LINE('Exclusão efetuada com sucesso!');
+
+END;
+
+
+
+CREATE OR REPLACE TRIGGER TR_MostraOperacao
+BEFORE INSERT OR UPDATE OR DELETE
+ON agenda
+
+DECLARE
+	acao VARCHAR2(20);
+
+BEGIN
+	IF INSERTING THEN
+		acao := 'Inclusão';
+	ELSIF UPDATING THEN
+		acao := 'Alteração';
+	ELSE
+		acao := 'Exclusão';
+	END IF;
+	DBMS_OUTPUT.PUT_LINE(acao || ' efetuada com sucesso!');
+
+END;
+
+INSERT INTO agenda (nome,fone) VALUES('Fred','1111-1111');
+
+UPDATE agenda SET nome='Jose' WHERE nome='Fred';
+
+DELETE FROM agenda WHERE nome='Jose';
+
+SELECT * FROM agenda;
+
+CREATE TABLE agenda ( nome VARCHAR2(20),
+fone VARCHAR2(10) );
+
+-----------------------------------------------------
+CREATE TABLE morto AS SELECT * FROM agenda WHERE 1=2;
+-----------------------------------------------------
+ALTER TABLE morto ADD (DATAMOV DATE,
+
+MOVIMENTO VARCHAR2(20));
+
+CREATE OR REPLACE TRIGGER my_trigger
+BEFORE INSERT OR UPDATE OR DELETE ON agenda
+FOR EACH ROW
+BEGIN
+IF INSERTING THEN
+INSERT INTO morto VALUES (:NEW.NOME, :NEW.FONE, SYSDATE, 'INCLUIDO');
+ELSIF UPDATING THEN
+
+BEGIN
+INSERT INTO morto VALUES (:OLD.NOME, :OLD.FONE, SYSDATE, 'ALTERADO DE');
+INSERT INTO morto VALUES (:NEW.NOME, :NEW.FONE, SYSDATE, 'ALTERADO PARA');
+END;
+ELSE
+
+INSERT INTO morto VALUES (:OLD.NOME, :OLD.FONE, SYSDATE, 'EXCLUIDO');
+
+END IF;
+END;
+
+INSERT INTO agenda (nome,fone) VALUES('Fred','1111-1111');
+
+UPDATE agenda SET nome='Jose' WHERE nome='Fred';
+
+DELETE FROM agenda WHERE nome='Jose';
+
+SELECT * FROM morto
+
+---- instead of não funciona na tabela 
+-- criar uma view = uma consulta armazenada ( ficaa vinculada a tabela principal )
+
+CREATE VIEW vw_agenda AS SELECT * FROM agenda;
+----------------------------------------------------------
+CREATE OR REPLACE TRIGGER tr_insteadof
+INSTEAD OF INSERT ON vw_agenda
+FOR EACH ROW
+BEGIN
+DBMS_OUTPUT.PUT_LINE('Inclusão efetuada com sucesso!');
+END;
+----------------------------------------------------------
+
+
+    
+SELECT * FROM agenda;
+
+    ---- serie de comado (procedimento armazenado)
+------ blcoo anonimo se der algum problema utilizar --> SET SERVEROUTPUT ON ; É SO UM TEST O BLOCO ANONIMO
+
+
+CREATE OR REPLACE PROCEDURE Sp_Escrever
+	(texto IN VARCHAR2) 
+    AS
+BEGIN 
+	DBMS_OUTPUT.PUT_LINE(texto);
+END;
+
+CREATE OR REPLACE PROCEDURE Sp_somar
+	(valor1 IN NUMBER, valor2 IN NUMBER)
+AS
+	soma NUMBER;
+	
+BEGIN 
+    soma := (valor1+valor2);
+	DBMS_OUTPUT.PUT_LINE(soma);
+END;
+BEGIN 
+	Sp_somar(10,50);
+END;
+
+CREATE OR REPLACE FUNCTION FN_Somar(valor1 IN NUMBER,
+									valor2 IN NUMBER)
+
+RETURN NUMBER
+AS
+	soma NUMBER;
+BEGIN
+	soma := valor1 + valor2;
+	RETURN soma;
+END;
+--no banco de dados de ação guarda calculos e redundacia 
+SELECT FN_Somar(10,50) FROM dual;
