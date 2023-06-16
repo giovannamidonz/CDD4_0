@@ -1,0 +1,72 @@
+import mysql.connector
+
+banco = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="cdd2023",
+    database="escola"
+)
+
+'''print(banco)'''
+
+meuCursor= banco.cursor()
+pesquisa = 'SELECT * FROM aluno;'
+meuCursor.execute(pesquisa)
+resultado = meuCursor.fetchall()
+
+for x in resultado:
+    print(x)
+meuCursor.close()
+banco.close()
+
+
+import mysql.connector
+
+banco = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="cdd2023",
+    database="escola"
+)
+
+nome1 = "menino ney"
+telefone1 = "81987654372"
+cpf= '74398523459'
+media = 3
+turma = 'turmaE'
+situacao = 'r'
+status = 'reprovado'
+meuCursor = banco.cursor()
+sql = "INSERT INTO aluno (nome,telefone,cpf,media,turma,situacao,status) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+data = (nome1,telefone1,cpf,media,turma,situacao,status)
+
+meuCursor.execute(sql,data)
+banco.commit()
+userid = meuCursor.lastrowid
+print(userid)
+
+meuCursor.close()
+banco.close()
+
+
+
+
+import mysql.connector
+
+banco = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="cdd2023",
+    database="escola"
+)
+
+
+meuCursor = banco.cursor()
+sql = "DELETE FROM aluno WHERE matricula = 5"
+meuCursor.execute(sql)
+banco.commit()
+userid = meuCursor.lastrowid
+print(userid)
+
+meuCursor.close()
+banco.close()
