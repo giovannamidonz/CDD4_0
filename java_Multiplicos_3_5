@@ -1,0 +1,29 @@
+package br.com.cdd.aula3;
+import java.util.Scanner;
+public class Calc {
+	static Scanner input = new Scanner(System.in);
+	public static void main(String[] args) {
+		
+	somatorioMultiplico();	
+	
+
+}
+	
+	public static void somatorioMultiplico() {
+		int somatorio3 = 0; 
+		int somatorio5 = 0;
+		
+		for(int i = 1;i <= 20; i++) {
+			if( ( i % 3 ) == 0 ){
+				somatorio3 = i + somatorio3;
+			}else if(( i % 5 ) == 0) {
+				somatorio5 = i + somatorio5;
+			}
+		}
+		
+		System.out.println("O somatorio dos multiplicos de 3  : " + somatorio3 );
+		System.out.println("O somatorio dos multiplicos de 5  : " + somatorio5);
+		
+	}
+
+}
